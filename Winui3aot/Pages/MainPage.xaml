@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="Winui3aot.Pages.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:animatedvisuals="using:AnimatedVisuals"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Winui3aot.Pages"
+    xmlns:lottie="using:CommunityToolkit.WinUI.Lottie"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="using:Winui3aot.ViewModels"
+    xmlns:ic="using:FluentIcons.WinUI"
+    mc:Ignorable="d">
+    <Grid RowSpacing="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid ColumnSpacing="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <TextBox
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Stretch"
+                PlaceholderText="请输入您要执行的命令"
+                Text="{x:Bind ViewModel.Command, Mode=TwoWay}" />
+            <Button
+                Grid.Column="1"
+                Command="{x:Bind ViewModel.StartCommand}">
+                <StackPanel Orientation="Horizontal" Spacing="16">
+                    <ic:SymbolIcon Symbol="Play" UseSegoeMetrics="True"/>
+                    <TextBlock Text="执行"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+        <ScrollViewer Grid.Row="1">
+            <TextBlock Text="{x:Bind ViewModel.Output, Mode=OneWay}" />
+        </ScrollViewer>
+    </Grid>
+</Page>

@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Winui3aot (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Winui3aot (Unpackaged)": {
+      "commandName": "Project",
+      "nativeDebugging": false
+    }
+  }
+}
