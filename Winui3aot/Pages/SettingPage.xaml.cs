@@ -41,7 +41,6 @@ namespace Winui3aot.Pages
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Debug.WriteLine($"ComboBox¸Ä±ä {ComboBox.SelectedIndex}");
             if (ComboBox.SelectedIndex==0)
             {
                 MainWindow.toggleThemeByString("Light");
@@ -49,6 +48,18 @@ namespace Winui3aot.Pages
             else if(ComboBox.SelectedIndex == 1)
             {
                 MainWindow.toggleThemeByString("Dark");
+            }
+        }
+
+        private void ComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+            if (ComboBox1.SelectedIndex == 0)
+            {
+                ThemeHelper.switchToMica();
+            }
+            else if (ComboBox.SelectedIndex == 1)
+            {
+                ThemeHelper.switchToArcylic();
             }
         }
     }

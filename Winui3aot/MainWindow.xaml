@@ -19,7 +19,7 @@
             <RowDefinition Height="auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid Padding="16" ColumnSpacing="16">
+        <Grid Padding="14" ColumnSpacing="16">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="auto" />

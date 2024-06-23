@@ -8,19 +8,59 @@
     xmlns:ic="using:FluentIcons.WinUI"
     xmlns:local="using:Winui3aot.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     mc:Ignorable="d">
-    <Grid VerticalAlignment="Top">
+    <Page.Resources>
+        <x:Double x:Key="SettingsCardSpacing">4</x:Double>
+        <Style
+            x:Key="SettingsSectionHeaderTextBlockStyle"
+            BasedOn="{StaticResource BodyStrongTextBlockStyle}"
+            TargetType="TextBlock">
+            <Style.Setters>
+                <Setter Property="Margin" Value="1,16,0,6" />
+            </Style.Setters>
+        </Style>
+    </Page.Resources>
+    <StackPanel Spacing="{StaticResource SettingsCardSpacing}">
+        <win:StackPanel.ChildrenTransitions>
+            <win:EntranceThemeTransition FromVerticalOffset="50" />
+            <win:RepositionThemeTransition IsStaggeringEnabled="False" />
+        </win:StackPanel.ChildrenTransitions>
+        <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="外观" />
         <controls:SettingsCard
             x:Name="settingsCard"
             Description="选择软件显示的主题"
             Header="软件主题"
             HeaderIcon="{ic:SymbolIcon Symbol=Color}">
-            <ComboBox SelectionChanged="ComboBox_SelectionChanged" x:Name="ComboBox" PlaceholderText="请选择您的主题">
+            <ComboBox
+                x:Name="ComboBox"
+                PlaceholderText="请选择您的主题"
+                SelectionChanged="ComboBox_SelectionChanged">
                 <ComboBoxItem>亮色</ComboBoxItem>
                 <ComboBoxItem>暗色</ComboBoxItem>
                 <ComboBoxItem>跟随系统</ComboBoxItem>
             </ComboBox>
         </controls:SettingsCard>
 
-    </Grid>
+        <controls:SettingsCard
+            Description="选择软件显示的材质"
+            Header="软件材质"
+            HeaderIcon="{ic:SymbolIcon Symbol=Layer}">
+            <ComboBox
+                x:Name="ComboBox1"
+                PlaceholderText="请选择您的材质"
+                SelectionChanged="ComboBox_SelectionChanged_1">
+                <ComboBoxItem>Mica</ComboBoxItem>
+                <ComboBoxItem>Acrylic</ComboBoxItem>
+            </ComboBox>
+        </controls:SettingsCard>
+
+        <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="下载" />
+        <controls:SettingsCard
+            Description="指定视频下载的文件夹"
+            Header="下载目录"
+            HeaderIcon="{ic:SymbolIcon Symbol=Folder}">
+            <Button Content="选择" />
+        </controls:SettingsCard>
+    </StackPanel>
 </Page>
