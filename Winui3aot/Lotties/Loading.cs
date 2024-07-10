@@ -6,10 +6,10 @@
 //           8.0.280225.1+7cd366a738
 //       
 //       Command:
-//           LottieGen -Language CSharp -Public -WinUIVersion 3.6 -InputFile a.json
+//           LottieGen -Language CSharp -Public -WinUIVersion 3.9 -InputFile loading.json
 //       
 //       Input file:
-//           a.json (44635 bytes created 17:19+08:00 Jun 22 2024)
+//           loading.json (44635 bytes created 17:19+08:00 Jun 22 2024)
 //       
 //       LottieGen source:
 //           http://aka.ms/Lottie
@@ -75,7 +75,7 @@ namespace AnimatedVisuals
             diagnostics = null;
 
             var res = 
-                new A_AnimatedVisual(
+                new Loading_AnimatedVisual(
                     compositor
                     );
                 res.CreateAnimations();
@@ -130,7 +130,7 @@ namespace AnimatedVisuals
         {
         }
 
-        sealed class A_AnimatedVisual
+        sealed class Loading_AnimatedVisual
             : Microsoft.UI.Xaml.Controls.IAnimatedVisual
             , Microsoft.UI.Xaml.Controls.IAnimatedVisual2
         {
@@ -1892,7 +1892,7 @@ namespace AnimatedVisuals
                 return result;
             }
 
-            internal A_AnimatedVisual(
+            internal Loading_AnimatedVisual(
                 Compositor compositor
                 )
             {

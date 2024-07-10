@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 
@@ -22,6 +23,8 @@ using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
+using Winui3aot.Pages;
+
 using WinUIEx;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -37,12 +40,17 @@ namespace Winui3aot
         public App()
         {
             InitializeComponent();
+            UnhandledException += App_UnhandledException;
         }
 
+        private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
+
             dispatcherQueue = DispatcherQueue.GetForCurrentThread();
-            #region 初始化数据库
             con = new("Data Source=TestSqlite.sqlite");
             con.Open();
             try
@@ -57,12 +65,10 @@ namespace Winui3aot
             {
                 Debug.WriteLine(e.Message);
             }
-
-            #endregion
             m_window = new MainWindow();
+            var launchWindow = new LaunchWindow();
             m_window.Activate();
         }
-
-        private WindowEx m_window;
+        public static WindowEx m_window;
     }
 }

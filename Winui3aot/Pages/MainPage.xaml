@@ -10,6 +10,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodels="using:Winui3aot.ViewModels"
     xmlns:ic="using:FluentIcons.WinUI"
+    NavigationCacheMode="Enabled"
     mc:Ignorable="d">
     <Grid RowSpacing="8">
         <Grid.RowDefinitions>
@@ -20,23 +21,37 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
             <TextBox
+                x:Name="VideoUrl"
                 HorizontalAlignment="Stretch"
                 HorizontalContentAlignment="Stretch"
-                PlaceholderText="请输入您要执行的命令"
-                Text="{x:Bind ViewModel.Command, Mode=TwoWay}" />
+                PlaceholderText="请输入您要解析的视频地址"
+                Text="{x:Bind ViewModel.VideoUrl, Mode=TwoWay}" />
             <Button
                 Grid.Column="1"
-                Command="{x:Bind ViewModel.StartCommand}">
-                <StackPanel Orientation="Horizontal" Spacing="16">
-                    <ic:SymbolIcon Symbol="Play" UseSegoeMetrics="True"/>
-                    <TextBlock Text="执行"/>
+                Command="{x:Bind ViewModel.PasteClipBoardCommand}">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <ic:SymbolIcon Symbol="Clipboard"/>
+                    <TextBlock Text="从剪贴板复制Url"/>
+                </StackPanel>
+            </Button>
+            <Button
+                Grid.Column="2"
+                Click="StartDownload"
+                Style="{ThemeResource AccentButtonStyle}">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <ic:SymbolIcon Symbol="ArrowDownload"/>
+                    <TextBlock Text="开始下载"/>
                 </StackPanel>
             </Button>
         </Grid>
-        <ScrollViewer Grid.Row="1">
-            <TextBlock Text="{x:Bind ViewModel.Output, Mode=OneWay}" />
-        </ScrollViewer>
+        <Grid Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Opacity="{x:Bind ViewModel.LoadingState}">
+            <Grid.OpacityTransition>
+                <ScalarTransition/>
+            </Grid.OpacityTransition>
+            <ProgressRing IsActive="True"/>
+        </Grid>
     </Grid>
 </Page>

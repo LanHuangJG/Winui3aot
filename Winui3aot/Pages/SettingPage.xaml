@@ -21,46 +21,78 @@
             </Style.Setters>
         </Style>
     </Page.Resources>
-    <StackPanel Spacing="{StaticResource SettingsCardSpacing}">
-        <win:StackPanel.ChildrenTransitions>
-            <win:EntranceThemeTransition FromVerticalOffset="50" />
-            <win:RepositionThemeTransition IsStaggeringEnabled="False" />
-        </win:StackPanel.ChildrenTransitions>
-        <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="外观" />
-        <controls:SettingsCard
-            x:Name="settingsCard"
-            Description="选择软件显示的主题"
-            Header="软件主题"
-            HeaderIcon="{ic:SymbolIcon Symbol=Color}">
-            <ComboBox
-                x:Name="ComboBox"
-                PlaceholderText="请选择您的主题"
-                SelectionChanged="ComboBox_SelectionChanged">
-                <ComboBoxItem>亮色</ComboBoxItem>
-                <ComboBoxItem>暗色</ComboBoxItem>
-                <ComboBoxItem>跟随系统</ComboBoxItem>
-            </ComboBox>
-        </controls:SettingsCard>
+    <ScrollViewer>
+        <StackPanel Margin="16" Spacing="{StaticResource SettingsCardSpacing}">
+            <win:StackPanel.ChildrenTransitions>
+                <win:EntranceThemeTransition FromVerticalOffset="50" />
+                <win:RepositionThemeTransition IsStaggeringEnabled="False" />
+            </win:StackPanel.ChildrenTransitions>
+            <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="软件外观" />
+            <InfoBar
+                Title="提示"
+                IsOpen="True"
+                IsClosable="False"
+                Message="主题跟随系统还没做"
+                Severity="Warning" />
+            <controls:SettingsCard
+                x:Name="settingsCard"
+                Description="选择软件显示的主题"
+                Header="软件主题"
+                HeaderIcon="{ic:SymbolIcon Symbol=Color}">
+                <ComboBox
+                    PlaceholderText="请选择您的主题"
+                    SelectedIndex="{x:Bind ViewModel.ThemeSelectIndex}"
+                    SelectionChanged="ComboBox_SelectionChanged">
+                    <ComboBoxItem>亮色</ComboBoxItem>
+                    <ComboBoxItem>暗色</ComboBoxItem>
+                    <ComboBoxItem>跟随系统</ComboBoxItem>
+                </ComboBox>
+            </controls:SettingsCard>
 
-        <controls:SettingsCard
-            Description="选择软件显示的材质"
-            Header="软件材质"
-            HeaderIcon="{ic:SymbolIcon Symbol=Layer}">
-            <ComboBox
-                x:Name="ComboBox1"
-                PlaceholderText="请选择您的材质"
-                SelectionChanged="ComboBox_SelectionChanged_1">
-                <ComboBoxItem>Mica</ComboBoxItem>
-                <ComboBoxItem>Acrylic</ComboBoxItem>
-            </ComboBox>
-        </controls:SettingsCard>
+            <controls:SettingsCard
+                Description="选择软件显示的材质"
+                Header="软件材质"
+                HeaderIcon="{ic:SymbolIcon Symbol=Layer}">
+                <ComboBox
+                    PlaceholderText="请选择您的材质"
+                    SelectedIndex="{x:Bind ViewModel.BackdropSelectIndex}"
+                    SelectionChanged="ComboBox_SelectionChanged_1">
+                    <ComboBoxItem>Mica</ComboBoxItem>
+                    <ComboBoxItem>Acrylic</ComboBoxItem>
+                </ComboBox>
+            </controls:SettingsCard>
 
-        <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="下载" />
-        <controls:SettingsCard
-            Description="指定视频下载的文件夹"
-            Header="下载目录"
-            HeaderIcon="{ic:SymbolIcon Symbol=Folder}">
-            <Button Content="选择" />
-        </controls:SettingsCard>
-    </StackPanel>
+            <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="视频下载" />
+            <controls:SettingsCard
+                Description="{x:Bind ViewModel.DownloadPath, Mode=OneWay}"
+                Header="保存目录"
+                HeaderIcon="{ic:SymbolIcon Symbol=Folder}">
+                <Button Click="SelectStoragePathAsync" Content="选择文件夹" />
+            </controls:SettingsCard>
+
+            <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="软件信息" />
+            <controls:SettingsExpander
+                Description="© 2024. All rights reserved."
+                Header="FluentBBDown"
+                HeaderIcon="{ic:SymbolIcon Symbol=AppFolder,
+                                           UseSegoeMetrics=True}">
+                <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="Version dev-0.0.1" />
+                <controls:SettingsExpander.Items>
+                    <controls:SettingsCard Description="如果喜欢本软件的话记得点个star哦" Header="开源地址">
+                        <HyperlinkButton Content="https://github.com/LanHuangJG/Winui3aot.git" NavigateUri="https://github.com/LanHuangJG/Winui3aot.git" />
+                    </controls:SettingsCard>
+
+                </controls:SettingsExpander.Items>
+            </controls:SettingsExpander>
+
+            <controls:SettingsExpander Header="使用到的开源库" HeaderIcon="{ic:SymbolIcon Symbol=GiftCard}" Description="站在巨人的肩膀上">
+                <controls:SettingsExpander.Items>
+                    <controls:SettingsCard Header="BBDown" Description="Version: 1.6.2">
+                        <HyperlinkButton Content="https://github.com/nilaoda/BBDown" NavigateUri="https://github.com/nilaoda/BBDown" />
+                    </controls:SettingsCard>
+
+                </controls:SettingsExpander.Items>
+            </controls:SettingsExpander>
+        </StackPanel>
+    </ScrollViewer>
 </Page>

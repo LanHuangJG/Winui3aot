@@ -1,66 +1,72 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
 using System.Diagnostics;
-using Winui3aot.Helper;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
+using Microsoft.UI.Xaml.Controls;
+
+using Windows.Storage;
+using Windows.Storage.Pickers;
+
+using Winui3aot.Helper;
+using Winui3aot.ViewModels;
+
 
 namespace Winui3aot.Pages
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
+
     public sealed partial class SettingPage : Page
     {
+        public SettingViewModel ViewModel = new();
         public SettingPage()
         {
-            this.InitializeComponent();
-            var theme = SqliteHelper.getValue("theme");
-            if (theme == "Light")
-            {
-                ComboBox.SelectedIndex = 0;
-            }
-            else if(theme=="Dark")
-            {
-                ComboBox.SelectedIndex = 1;
-            }
+            InitializeComponent();
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ComboBox.SelectedIndex==0)
+            ComboBox combobox = (ComboBox)sender;
+            if (combobox.SelectedIndex == 0)
             {
-                MainWindow.toggleThemeByString("Light");
+                ThemeHelper.ToggleThemeByString("Light");
             }
-            else if(ComboBox.SelectedIndex == 1)
+            else if (combobox.SelectedIndex == 1)
             {
-                MainWindow.toggleThemeByString("Dark");
+                ThemeHelper.ToggleThemeByString("Dark");
             }
         }
 
         private void ComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
-            if (ComboBox1.SelectedIndex == 0)
+            ComboBox combobox = (ComboBox)sender;
+            if (combobox.SelectedIndex == 0)
             {
-                ThemeHelper.switchToMica();
+                ThemeHelper.SwitchToMica();
             }
-            else if (ComboBox.SelectedIndex == 1)
+            else if (combobox.SelectedIndex == 1)
             {
-                ThemeHelper.switchToArcylic();
+                ThemeHelper.SwitchToArcylic();
             }
+        }
+
+        private async void SelectStoragePathAsync(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        {
+            FolderPicker openPicker = new();
+            WinUIEx.WindowEx window = App.m_window;
+            nint hWnd = WinRT.Interop.WindowNative.GetWindowHandle(window);
+            WinRT.Interop.InitializeWithWindow.Initialize(openPicker, hWnd);
+            openPicker.CommitButtonText = "È·¶¨";
+            openPicker.ViewMode = PickerViewMode.List;
+            openPicker.SuggestedStartLocation = PickerLocationId.Downloads;
+            openPicker.FileTypeFilter.Add("*");
+            StorageFolder folder = await openPicker.PickSingleFolderAsync();
+            if (folder != null)
+            {
+                ViewModel.setDownloadPath(folder.Path);
+            }
+            else
+            {
+                Debug.WriteLine("Operation cancelled.");
+            }
+
         }
     }
 }

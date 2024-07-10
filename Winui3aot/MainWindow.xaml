@@ -6,9 +6,9 @@
     xmlns:controls="using:CommunityToolkit.WinUI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ex="using:WinUIEx"
+    xmlns:ic="using:FluentIcons.WinUI"
     xmlns:local="using:Winui3aot"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:ic="using:FluentIcons.WinUI"
     IsResizable="False"
     mc:Ignorable="d">
     <Window.SystemBackdrop>
@@ -19,13 +19,20 @@
             <RowDefinition Height="auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid Padding="14" ColumnSpacing="16">
+        <Grid Padding="16" ColumnSpacing="16">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
-            <ic:SymbolIcon Symbol="AppFolder" UseSegoeMetrics="True" VerticalAlignment="Center" IsFilled="True"/>
-            <TextBlock Text="FluentBBDowner" Style="{ThemeResource CaptionTextBlockStyle}" Grid.Column="1" VerticalAlignment="Center"/>
+            <ic:SymbolIcon
+                VerticalAlignment="Center"
+                IconVariant="Filled"
+                Symbol="AppFolder" />
+            <TextBlock
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                Style="{ThemeResource CaptionTextBlockStyle}"
+                Text="FluentBBDowner" />
         </Grid>
         <NavigationView
             x:Name="NavigationView"
@@ -41,7 +48,18 @@
                     Icon="Download"
                     Tag="Download" />
             </NavigationView.MenuItems>
-            <Frame x:Name="Frame" Margin="8" />
+            <Grid>
+                <Frame x:Name="Frame" Margin="8" />
+                <InfoBar
+                    Visibility="Collapsed"
+                    Margin="16"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Right"
+                    Title="提示"
+                    IsOpen="True"
+                    Message="请填写下载地址后再下载"
+                    Severity="Warning" />
+            </Grid>
         </NavigationView>
     </Grid>
 </ex:WindowEx>

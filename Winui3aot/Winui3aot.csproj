@@ -11,14 +11,12 @@
     <UseWinUI>true</UseWinUI>
     <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
     <WindowsPackageType>None</WindowsPackageType>
-    <WindowsSdkPackageVersion>10.0.22621.35-preview</WindowsSdkPackageVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Content Remove="Assets\loading.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Assets\BBDown.exe" />
-    <None Remove="Pages\SettingPage.xaml" />
+    <None Remove="LaunchWindow.xaml" />
+    <None Remove="Pages\DownloadPage.xaml" />
+    <None Remove="Pages\Launch\ConfigurePage.xaml" />
+    <None Remove="Pages\Launch\LoginPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,14 +30,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.1.0-prerelease.240602.1" />
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.WinUI" Version="2.0.0-rc2.1" />
+    <PackageReference Include="Microsoft.Graphics.Win2D" Version="1.2.0" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.0.240109" />
     <PackageReference Include="CommunityToolkit.WinUI.Lottie" Version="8.0.280225" />
-    <PackageReference Include="FluentIcons.WinUI" Version="1.1.245-ci" />
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.0-preview.5.24306.3" />
+    <PackageReference Include="FluentIcons.WinUI" Version="1.1.247" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.6" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.240531000-experimental1" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240607001" />
     <PackageReference Include="WinUIEx" Version="2.3.4" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
@@ -53,6 +52,11 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Lotties\Loading.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Content Update="Assets\BBDown.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -62,9 +66,35 @@
     <Content Update="C:\Users\15970\.nuget\packages\fluenticons.winui\1.1.245-ci\contentFiles\any\net7.0-windows10.0.17763\FluentIcons.WinUI\Assets\SeagullFluentIcons.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Update="C:\Users\15970\.nuget\packages\fluenticons.winui\1.1.247\contentFiles\any\net7.0-windows10.0.17763\FluentIcons.WinUI\Assets\FluentSystemIcons.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="C:\Users\15970\.nuget\packages\fluenticons.winui\1.1.247\contentFiles\any\net7.0-windows10.0.17763\FluentIcons.WinUI\Assets\SeagullFluentIcons.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\Launch\ConfigurePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="LaunchWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\DownloadPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Pages\SettingPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\Launch\LoginPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
